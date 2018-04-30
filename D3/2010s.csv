@@ -1,0 +1,28 @@
+group, axis, value
+Injuries,Nightclub,176.35
+Injuries,Open Public Area  ,691.38
+Injuries,Others,26.67
+Injuries,Places of Worship,24.83
+Injuries,Residential Area,121.35
+Injuries,Restaurant,31.31
+Injuries,School,46.84
+Injuries,Store/Mall,84.79
+Injuries,Workplace,79.06
+Fatalities,Nightclub,70.26
+Fatalities,Open Public Area  ,151.4
+Fatalities,Others,19.78
+Fatalities,Places of Worship,41.63
+Fatalities,Residential Area,262.97
+Fatalities,Restaurant,37
+Fatalities,School,107.82
+Fatalities,Store/Mall,55.21
+Fatalities,Workplace,75.8
+Total Victims,Nightclub,246.61
+Total Victims,Open Public Area  ,833.89
+Total Victims,Others,43.48
+Total Victims,Places of Worship,65.5
+Total Victims,Residential Area,347.81
+Total Victims,Restaurant,64.4
+Total Victims,School,63.01
+Total Victims,Store/Mall,135.15
+Total Victims,Workplace,148.96

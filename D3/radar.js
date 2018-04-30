@@ -11,8 +11,6 @@
 
 
 
-
-
 var RadarChart = {
   draw: function(id, data, options) {
 
@@ -24,8 +22,8 @@ var RadarChart = {
      *
      **/
     // initiate default config
-    var w = 300;
-    var h = 300;
+    var w = 400;
+    var h = 400;
     var config = {
       w: w,
       h: h,
@@ -274,8 +272,8 @@ var RadarChart = {
         .attr("text-anchor", "middle")
         .attr("x", function(d, i) { return config.w / 2 * (1 - 1.3 * Math.sin(i * config.radians / vis.totalAxes)); })
         .attr("y", function(d, i) { return config.h / 2 * (1 - 1.1 * Math.cos(i * config.radians / vis.totalAxes)); })
-        .attr("font-family", "sans-serif")
-        .attr("font-size", 11 * config.labelScale + "px");
+        .attr("font-family", "Advent Pro")
+        .attr("font-size", 12 * config.labelScale + "px");
     }
 
 

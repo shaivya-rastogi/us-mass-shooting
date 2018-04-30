@@ -14,9 +14,12 @@
     function init() {
       // initialize controller variables
       ctrl.examples = [
-        "data_test1",
-        "data_plant_seasons",
-        "data_car_ratings"
+        "1960s",
+        "1970s",
+        "1980s",
+        "1990s",
+        "2000s",
+        "2010s"
       ];
       ctrl.exampleSelected = ctrl.examples[0];
       ctrl.getData = getData;
