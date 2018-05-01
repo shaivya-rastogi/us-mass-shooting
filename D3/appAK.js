@@ -14,12 +14,12 @@
     function init() {
       // initialize controller variables
       ctrl.examples = [
-        "1960",
-        "1970",
-        "1980",
-        "1990",
-        "2000",
-        "2010"
+        "1960s",
+        "1970s",
+        "1980s",
+        "1990s",
+        "2000s",
+        "2010s"
       ];
       ctrl.exampleSelected = ctrl.examples[0];
       ctrl.getData = getData;
@@ -33,8 +33,8 @@
         facet: false,
         levels: 5,
         levelScale: 0.85,
-        labelScale: 0.7,
-        facetPaddingScale: 2.1,
+        labelScale: 0.9,
+        facetPaddingScale: 2,
         showLevels: true,
         showLevelsLabels: false,
         showAxesLabels: true,

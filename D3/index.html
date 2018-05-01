@@ -15,31 +15,27 @@
 
   <!-- header -->
   <header class="page-header">
-    <h1>D3 Radar Chart</h1> 
-    <p class="text-small">AngularJS application showcasing an interactiveHELLO(with facetting).</p>
+    <h1>Human Loss per Incident Area across Decades</h1> 
+    <p class="text-small">Select a decade to view total injuries, fatalities and victim count per decade grouped by incident areas such as</p>
+    <li>Nightclubs</li>
+    <li>Open Public Areas</li>
+    <li>Workplace of Perpetrator</li>
+    <li>Schools</li>
+    <li>Restaurants</li>
+    <li>Places of Worship</li>
+    <li>Residential Areas</li>
+    <li>Stores or Malls</li>
+    <li>Others</li>
   </header>
 
 
   <!-- main content -->
   <div class="main container">
-    <h2>Visualization</h2>
-
-    <!-- visualization -->
-    <div class="visualization col-xs-7">
-      <p>Select example: 
-        <select ng-options="example for example in radar.examples" ng-model="radar.exampleSelected" ng-change="radar.selectExample(radar.exampleSelected)"></select>
-      </p>
-      <div class="visualization">
-        <radar csv="radar.csv" config="radar.config"></radar>
-      </div>
-    </div>
-
-
     <!-- configuration -->
-    <div class="configuration col-xs-5">
-      <form>
-        <h3>Configuration Parameters</h3>
-        <div class="form-group">
+    <div class="configuration">
+      <!--<form>-->
+        <h3>Select Decade and Plot Pattern</h3>
+        <!--<div class="form-group">
           <label>Width:</label>
           <input type="number" class="form-control-inline" step="50" ng-model="radar.config.w" />
           <label>Height:</label>
@@ -56,20 +52,34 @@
         <div class="form-group">
           <label>Label Scale:</label>
           <input type="number" class="form-control-inline" step="0.1" ng-model="radar.config.labelScale" />
-        </div>
+        </div>-->
         <div class="form-group">
-          <label class="checkbox"><input type="checkbox" ng-model="radar.config.facet" /><span class="text-primary">Facet Plot</span></label>
-          <label class="checkbox"><input type="checkbox" ng-model="radar.config.showLevels" />Levels</label>
+          <label class="text-primary">Select Decade:&nbsp;
+          <select ng-options="example for example in radar.examples" ng-model="radar.exampleSelected" ng-change="radar.selectExample(radar.exampleSelected)"></select>
+          </label>
+          <label class="checkbox"><input type="checkbox" ng-model="radar.config.facet" /><span class="text-primary">Show Facets</span></label>
+          <!--<label class="checkbox"><input type="checkbox" ng-model="radar.config.showLevels" />Levels</label>
           <label class="checkbox"><input type="checkbox" ng-model="radar.config.showAxes" />Axes</label>
           <label class="checkbox"><input type="checkbox" ng-model="radar.config.showVertices" />Vertices</label>
           <label class="checkbox"><input type="checkbox" ng-model="radar.config.showPolygons" />Polygons</label>
           <label class="checkbox"><input type="checkbox" ng-model="radar.config.showLegend" />Legend</label>
           <label class="checkbox"><input type="checkbox" ng-model="radar.config.showLevelsLabels" />Levels Labels</label>
-          <label class="checkbox"><input type="checkbox" ng-model="radar.config.showAxesLabels" />Axes Labels</label>
+          <label class="checkbox"><input type="checkbox" ng-model="radar.config.showAxesLabels" />Axes Labels</label>-->
         </div>
         <!--<p class="text-muted">(NOTE: Not all configuration options are shown, refer to <code>README.md</code> or <code>radarDraw.js</code> for more details)</p>-->
-      </form>
+      <!--</form>-->
     </div>
+    <!--<h2>Visualization</h2>-->
+
+    <!-- visualization -->
+   <!--<div class="visualization col-xs-7">
+      <p>Select example: 
+        <select ng-options="example for example in radar.examples" ng-model="radar.exampleSelected" ng-change="radar.selectExample(radar.exampleSelected)"></select>
+      </p>-->
+      <div class="visualization">
+        <radar csv="radar.csv" config="radar.config"></radar>
+      </div>
+    <!--</div>--> <!--commented ak-->
   </div>
   <hr />
 

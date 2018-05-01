@@ -11,13 +11,17 @@ var RadarChart = {
     // initiate default config
     var w = 300;
     var h = 300;
+    var fw = 150;
+    var fh = 150;
     var config = {
       w: w,
       h: h,
+      fw : fw,
+      fh: fh,
       facet: false,
       levels: 5,
       levelScale: 0.85,
-      labelScale: 1.0,
+      labelScale: 1,
       facetPaddingScale: 2.5,
       maxValue: 0,
       radians: 2 * Math.PI,
@@ -115,14 +119,16 @@ var RadarChart = {
       }));
       config.w *= config.levelScale;
       config.h *= config.levelScale;
+      //config.fw *= config.levelScale;
+      //config.fh *= config.levelScale;
       config.paddingX = config.w * config.levelScale;
       config.paddingY = config.h * config.levelScale;
 
 
       // if facet required:
       if (config.facet) {
-        config.w /= data.length;
-        config.h /= data.length;
+        config.fw /= data.length;
+        config.fh /= data.length;
         config.paddingX /= (data.length / config.facetPaddingScale);
         config.paddingY /= (data.length / config.facetPaddingScale);
         config.polygonPointSize *= Math.pow(0.9, data.length);
@@ -148,13 +154,19 @@ var RadarChart = {
       // update vis parameters
       vis.allAxis = data[0].axes.map(function(i, j) { return i.axis; });
       vis.totalAxes = vis.allAxis.length;
-      vis.radius = Math.min(config.w / 2, config.h / 2);
+      if (config.facet) {
+        vis.radius = Math.min(config.fw*2, config.fh*2);
+      }
+      else{
+        vis.radius = Math.min(config.w / 2, config.h / 2);
+      }
+      
 
       // create main vis svg
       vis.svg = d3.select(id)
         .append("svg").classed("svg-vis", true)
         .attr("width", config.w + config.paddingX)
-        .attr("height", config.h + config.paddingY)
+        .attr("height", config.h + config.paddingY)//here change
         .append("svg:g")
         .attr("transform", "translate(" + config.translateX + "," + config.translateY + ")");;
 
@@ -189,30 +201,57 @@ var RadarChart = {
       // create vertices
       vis.vertices = vis.svg.selectAll(".vertices");
 
-      //Initiate Legend 
-      vis.legend = vis.svg.append("svg:g").classed("legend", true)
-        .attr("height", config.h / 2)
-        .attr("width", config.w / 2)
-        .attr("transform", "translate(" + 0 + ", " + 1.1 * config.h + ")");
+      //Initiate Legend
+      if(config.facet){
+        vis.legend = vis.svg.append("svg:g").classed("legend", true)
+          .attr("height", config.fh*2)
+          .attr("width", config.fw*2)
+          .attr("transform", "translate(" + 0 + ", " + 1.1 * config.fh*2 + ")");
+      } 
+      else{
+        vis.legend = vis.svg.append("svg:g").classed("legend", true)
+          .attr("height", config.h / 2)
+          .attr("width", config.w / 2)
+          .attr("transform", "translate(" + 0 + ", " + 1.1 * config.h + ")");
+      }
     }
 
 
     // builds out the levels of the spiderweb
     function buildLevels() {
-      for (var level = 0; level < config.levels; level++) {
-        var levelFactor = vis.radius * ((level + 1) / config.levels);
+      if (config.facet){
+        for (var level = 0; level < config.levels; level++) {
+          var levelFactor = vis.radius * ((level + 1) / config.levels);
 
-        // build level-lines
-        vis.levels
-          .data(vis.allAxis).enter()
-          .append("svg:line").classed("level-lines", true)
-          .attr("x1", function(d, i) { return levelFactor * (1 - Math.sin(i * config.radians / vis.totalAxes)); })
-          .attr("y1", function(d, i) { return levelFactor * (1 - Math.cos(i * config.radians / vis.totalAxes)); })
-          .attr("x2", function(d, i) { return levelFactor * (1 - Math.sin((i + 1) * config.radians / vis.totalAxes)); })
-          .attr("y2", function(d, i) { return levelFactor * (1 - Math.cos((i + 1) * config.radians / vis.totalAxes)); })
-          .attr("transform", "translate(" + (config.w / 2 - levelFactor) + ", " + (config.h / 2 - levelFactor) + ")")
-          .attr("stroke", "gray")
-          .attr("stroke-width", "0.5px");
+          // build level-lines
+          vis.levels
+            .data(vis.allAxis).enter()
+            .append("svg:line").classed("level-lines", true)
+            .attr("x1", function(d, i) { return levelFactor * (1 - Math.sin(i * config.radians / vis.totalAxes)); })
+            .attr("y1", function(d, i) { return levelFactor * (1 - Math.cos(i * config.radians / vis.totalAxes)); })
+            .attr("x2", function(d, i) { return levelFactor * (1 - Math.sin((i + 1) * config.radians / vis.totalAxes)); })
+            .attr("y2", function(d, i) { return levelFactor * (1 - Math.cos((i + 1) * config.radians / vis.totalAxes)); })
+            .attr("transform", "translate(" + (config.fw*2 - levelFactor) + ", " + (config.fh*2 - levelFactor) + ")")
+            .attr("stroke", "gray")
+            .attr("stroke-width", "0.5px");
+        }
+      }
+      else{
+        for (var level = 0; level < config.levels; level++) {
+          var levelFactor = vis.radius * ((level + 1) / config.levels);
+
+          // build level-lines
+          vis.levels
+            .data(vis.allAxis).enter()
+            .append("svg:line").classed("level-lines", true)
+            .attr("x1", function(d, i) { return levelFactor * (1 - Math.sin(i * config.radians / vis.totalAxes)); })
+            .attr("y1", function(d, i) { return levelFactor * (1 - Math.cos(i * config.radians / vis.totalAxes)); })
+            .attr("x2", function(d, i) { return levelFactor * (1 - Math.sin((i + 1) * config.radians / vis.totalAxes)); })
+            .attr("y2", function(d, i) { return levelFactor * (1 - Math.cos((i + 1) * config.radians / vis.totalAxes)); })
+            .attr("transform", "translate(" + (config.w / 2 - levelFactor) + ", " + (config.h / 2 - levelFactor) + ")")
+            .attr("stroke", "gray")
+            .attr("stroke-width", "0.5px");
+        }
       }
     }
 
@@ -239,7 +278,19 @@ var RadarChart = {
 
     // builds out the axes
     function buildAxes() {
-      vis.axes
+      if(config.facet){
+       vis.axes
+        .data(vis.allAxis).enter()
+        .append("svg:line").classed("axis-lines", true)
+        .attr("x1", config.fw*2)
+        .attr("y1", config.fh*2)
+        .attr("x2", function(d, i) { return config.fw*2 * (1 - Math.sin(i * config.radians / vis.totalAxes)); })
+        .attr("y2", function(d, i) { return config.fh*2 * (1 - Math.cos(i * config.radians / vis.totalAxes)); })
+        .attr("stroke", "grey")
+        .attr("stroke-width", "1px");
+      }
+      else{
+       vis.axes
         .data(vis.allAxis).enter()
         .append("svg:line").classed("axis-lines", true)
         .attr("x1", config.w / 2)
@@ -248,11 +299,24 @@ var RadarChart = {
         .attr("y2", function(d, i) { return config.h / 2 * (1 - Math.cos(i * config.radians / vis.totalAxes)); })
         .attr("stroke", "grey")
         .attr("stroke-width", "1px");
+      }
     }
 
 
     // builds out the axes labels
     function buildAxesLabels() {
+      if(config.facet){
+      vis.axes
+        .data(vis.allAxis).enter()
+        .append("svg:text").classed("axis-labels", true)
+        .text(function(d) { return d; })
+        .attr("text-anchor", "middle")
+        .attr("x", function(d, i) { return config.fw*2 * (1 - 1.3 * Math.sin(i * config.radians / vis.totalAxes)); })
+        .attr("y", function(d, i) { return config.fh*2 * (1 - 1.1 * Math.cos(i * config.radians / vis.totalAxes)); })
+        .attr("font-family", "Advent Pro")
+        .attr("font-size", 9 * config.labelScale + "px");
+      }
+      else{
       vis.axes
         .data(vis.allAxis).enter()
         .append("svg:text").classed("axis-labels", true)
@@ -262,6 +326,7 @@ var RadarChart = {
         .attr("y", function(d, i) { return config.h / 2 * (1 - 1.1 * Math.cos(i * config.radians / vis.totalAxes)); })
         .attr("font-family", "Advent Pro")
         .attr("font-size", 12 * config.labelScale + "px");
+      }
     }
 
 
@@ -269,10 +334,19 @@ var RadarChart = {
     function buildCoordinates(data) {
       data.forEach(function(group) {
         group.axes.forEach(function(d, i) {
-          d.coordinates = { // [x, y] coordinates
-            x: config.w / 2 * (1 - (parseFloat(Math.max(d.value, 0)) / config.maxValue) * Math.sin(i * config.radians / vis.totalAxes)),
-            y: config.h / 2 * (1 - (parseFloat(Math.max(d.value, 0)) / config.maxValue) * Math.cos(i * config.radians / vis.totalAxes))
-          };
+          if(config.facet){
+            d.coordinates = { // [x, y] coordinates
+              x: config.fw*2 * (1 - (parseFloat(Math.max(d.value, 0)) / config.maxValue) * Math.sin(i * config.radians / vis.totalAxes)),
+              y: config.fh*2 * (1 - (parseFloat(Math.max(d.value, 0)) / config.maxValue) * Math.cos(i * config.radians / vis.totalAxes))
+            };
+          }
+          else{
+            d.coordinates = { // [x, y] coordinates
+              x: config.w / 2 * (1 - (parseFloat(Math.max(d.value, 0)) / config.maxValue) * Math.sin(i * config.radians / vis.totalAxes)),
+              y: config.h / 2 * (1 - (parseFloat(Math.max(d.value, 0)) / config.maxValue) * Math.cos(i * config.radians / vis.totalAxes))
+            };
+          }
+
         });
       });
     }
@@ -330,37 +404,63 @@ var RadarChart = {
 
     // builds out the legend
     function buildLegend(data) {
-      //Create legend squares
-      vis.legend.selectAll(".legend-tiles")
-        .data(data).enter()
-        .append("svg:rect").classed("legend-tiles", true)
-        .attr("x", config.w - config.paddingX / 2)
-        .attr("y", function(d, i) { return i * 2 * config.legendBoxSize; })
-        .attr("width", config.legendBoxSize)
-        .attr("height", config.legendBoxSize)
-        .attr("fill", function(d, g) { return config.colors(g); });
+      if(config.facet){
+        //Create legend squares
+        vis.legend.selectAll(".legend-tiles")
+          .data(data).enter()
+          .append("svg:rect").classed("legend-tiles", true)
+          .attr("x", config.fw*2 - config.paddingX) //div2padx
+          .attr("y", function(d, i) { return config.fh*2 - (i * 4); })
+          .attr("width", config.legendBoxSize)
+          .attr("height", config.legendBoxSize)
+          .attr("fill", function(d, g) { return config.colors(g); });
 
-      //Create text next to squares
-      vis.legend.selectAll(".legend-labels")
-        .data(data).enter()
-        .append("svg:text").classed("legend-labels", true)
-        .attr("x", config.w - config.paddingX / 2 + (1.5 * config.legendBoxSize))
-        .attr("y", function(d, i) { return i * 2 * config.legendBoxSize; })
-        .attr("dy", 0.07 * config.legendBoxSize + "em")
-        .attr("font-size", 14 * config.labelScale + "px")
-        .attr("font-family", 'Advent Pro')
-        .attr("fill", "gray")
-        .text(function(d) {
-          return d.group;
-        });
+        //Create text next to squares
+        vis.legend.selectAll(".legend-labels")
+          .data(data).enter()
+          .append("svg:text").classed("legend-labels", true)
+          .attr("x", config.fw*2 - config.paddingX + (15)) //div2padx
+          .attr("y", function(d, i) { return config.fh*2 - (i * 2 * config.legendBoxSize); })
+          .attr("dy", 0.07 * config.legendBoxSize + "em")
+          .attr("font-size", 14 * config.labelScale + "px")
+          .attr("font-family", 'Advent Pro')
+          .attr("fill", "gray")
+          .text(function(d) {
+            return d.group;
+          });
+      }
+      else{
+        //Create legend squares
+        vis.legend.selectAll(".legend-tiles")
+          .data(data).enter()
+          .append("svg:rect").classed("legend-tiles", true)
+          .attr("x", config.w - config.paddingX / 2)
+          .attr("y", function(d, i) { return i * 2 * config.legendBoxSize; })
+          .attr("width", config.legendBoxSize)
+          .attr("height", config.legendBoxSize)
+          .attr("fill", function(d, g) { return config.colors(g); });
+
+        //Create text next to squares
+        vis.legend.selectAll(".legend-labels")
+          .data(data).enter()
+          .append("svg:text").classed("legend-labels", true)
+          .attr("x", config.w - config.paddingX / 2 + (1.5 * config.legendBoxSize))
+          .attr("y", function(d, i) { return i * 2 * config.legendBoxSize; })
+          .attr("dy", 0.07 * config.legendBoxSize + "em")
+          .attr("font-size", 14 * config.labelScale + "px")
+          .attr("font-family", 'Advent Pro')
+          .attr("fill", "gray")
+          .text(function(d) {
+            return d.group;
+          });
+      }
     }
 
 
     // show tooltip of vertices
     function verticesTooltipShow(d) {
       vis.verticesTooltip.style("opacity", 0.9)
-        .html("<strong>Value</strong>: " + d.value + "<br />" +
-          "<strong>Description</strong>: " + d.description + "<br />")
+        .html("<strong>Value</strong>: " + d.value + "<br />")
         .style("left", (d3.event.pageX) + "px")
         .style("top", (d3.event.pageY) + "px");
     }
