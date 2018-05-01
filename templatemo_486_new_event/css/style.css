@@ -55,6 +55,29 @@ a {
   outline: none;
 }
 
+pre {
+  height: 200px;
+  font-size: 9px;
+  overflow-y: scroll;
+}
+.form-control-inline {
+  display: inline;
+  width: 40px;
+  margin-right: 5px;
+}
+.visualization {
+}
+.configuration {
+  font-size: 0.8em;
+  width: 250px;
+  border: 1px solid #ddd;
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+.checkbox {
+  margin-left: 20px;
+}
+
 
 /*---------------------------------------
     General

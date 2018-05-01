@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="RadarChart">
 <head>
 <!--
 New Event
@@ -24,18 +24,23 @@ http://www.templatemo.com/tm-486-new-event
 
 <!-- Google Font -->
 <link href='https://fonts.googleapis.com/css?family=Poppins:400,500,600' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" />
+<link href='https://fonts.googleapis.com/css?family=Advent Pro' rel='stylesheet'>
 
 </head>
-<body data-spy="scroll" data-offset="50" data-target=".navbar-collapse">
-
+<body data-spy="scroll" data-offset="50" data-target=".navbar-collapse" ng-controller="MainCtrl as radar">
+<!--<body data-spy="scroll" data-offset="50" data-target=".navbar-collapse" class = "container" ng-controller="MainCtrl as radar">-->
+<!--<body class="container" ng-controller="MainCtrl as radar">-->
 <!-- =========================
      PRE LOADER
 ============================== -->
-<div class="preloader">
+<!--<div class="preloader">
 
 	<div class="sk-rotating-plane"></div>
 
-</div>
+</div>-->
 
 
 <!-- =========================
@@ -76,6 +81,9 @@ http://www.templatemo.com/tm-486-new-event
 <!-- =========================
     INTRO SECTION
 ============================== -->
+
+
+<!--end-->
 <section id="intro" class="parallax-section">
 	<div class="container">
 		<div class="row">
@@ -175,7 +183,7 @@ http://www.templatemo.com/tm-486-new-event
 	<div class="container">
 		<div class="row">
 
-			<div class="wow fadeInUp col-md-6 col-sm-10" data-wow-delay="1.3s">
+			<!--<div class="wow fadeInUp col-md-6 col-sm-10" data-wow-delay="1.3s">
 				<h2>Watch Video</h2>
 				<h3>Quisque ut libero sapien. Integer tellus nisl, efficitur sed dolor at, vehicula finibus massa. Sed tincidunt metus sed eleifend suscipit.</h3>
 				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet. Dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet consectetuer diam nonummy.</p>
@@ -184,7 +192,75 @@ http://www.templatemo.com/tm-486-new-event
 				<div class="embed-responsive embed-responsive-16by9">
 					<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/XDPwXQjAlB0" allowfullscreen></iframe>
 				</div>
-			</div>
+			</div>-->
+
+			<header class="page-header">
+				<h1>Human Loss per Incident Area across Decades</h1>
+				<p class="text-small">Select a decade to view total injuries, fatalities and victim count per decade grouped by incident areas such as</p>
+				<li>Nightclubs</li>
+				<li>Open Public Areas</li>
+				<li>Workplace of Perpetrator</li>
+				<li>Schools</li>
+				<li>Restaurants</li>
+				<li>Places of Worship</li>
+				<li>Residential Areas</li>
+				<li>Stores or Malls</li>
+				<li>Others</li>
+			</header>
+
+			<!-- main content -->
+		  <div class="main container">
+		    <!-- configuration -->
+		    <div class="configuration">
+		      <!--<form>-->
+		        <h3>Select Decade and Plot Pattern</h3>
+		        <!--<div class="form-group">
+		          <label>Width:</label>
+		          <input type="number" class="form-control-inline" step="50" ng-model="radar.config.w" />
+		          <label>Height:</label>
+		          <input type="number" class="form-control-inline" step="50" ng-model="radar.config.h" />
+		        </div>
+		        <div class="form-group">
+		          <label>Levels:</label>
+		          <input type="number" class="form-control-inline" step="1" ng-model="radar.config.levels" />
+		        </div>
+		        <div class="form-group">
+		          <label>Padding Scale:</label>
+		          <input type="number" class="form-control-inline" step="0.1" ng-model="radar.config.facetPaddingScale" />
+		        </div>
+		        <div class="form-group">
+		          <label>Label Scale:</label>
+		          <input type="number" class="form-control-inline" step="0.1" ng-model="radar.config.labelScale" />
+		        </div>-->
+		        <div class="form-group">
+		          <label class="text-primary">Select Decade:&nbsp;
+		          <select ng-options="example for example in radar.examples" ng-model="radar.exampleSelected" ng-change="radar.selectExample(radar.exampleSelected)"></select>
+		          </label>
+		          <label class="checkbox"><input type="checkbox" ng-model="radar.config.facet" /><span class="text-primary">Show Facets</span></label>
+		          <!--<label class="checkbox"><input type="checkbox" ng-model="radar.config.showLevels" />Levels</label>
+		          <label class="checkbox"><input type="checkbox" ng-model="radar.config.showAxes" />Axes</label>
+		          <label class="checkbox"><input type="checkbox" ng-model="radar.config.showVertices" />Vertices</label>
+		          <label class="checkbox"><input type="checkbox" ng-model="radar.config.showPolygons" />Polygons</label>
+		          <label class="checkbox"><input type="checkbox" ng-model="radar.config.showLegend" />Legend</label>
+		          <label class="checkbox"><input type="checkbox" ng-model="radar.config.showLevelsLabels" />Levels Labels</label>
+		          <label class="checkbox"><input type="checkbox" ng-model="radar.config.showAxesLabels" />Axes Labels</label>-->
+		        </div>
+		        <!--<p class="text-muted">(NOTE: Not all configuration options are shown, refer to <code>README.md</code> or <code>radarDraw.js</code> for more details)</p>-->
+		      <!--</form>-->
+		    </div>
+		    <!--<h2>Visualization</h2>-->
+
+		    <!-- visualization -->
+		   <!--<div class="visualization col-xs-7">
+		      <p>Select example:
+		        <select ng-options="example for example in radar.examples" ng-model="radar.exampleSelected" ng-change="radar.selectExample(radar.exampleSelected)"></select>
+		      </p>-->
+		      <div class="visualization">
+		        <radar csv="radar.csv" config="radar.config"></radar>
+		      </div>
+		    <!--</div>--> <!--commented ak-->
+		  </div>
+		  <hr />
 
 		</div>
 	</div>
@@ -691,6 +767,15 @@ http://www.templatemo.com/tm-486-new-event
 <script src="js/smoothscroll.js"></script>
 <script src="js/wow.min.js"></script>
 <script src="js/custom.js"></script>
+<script src="http://code.angularjs.org/1.3.5/angular.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="js/appAK.js"></script>
+<script src="js/radarAK.js"></script>
+<script src="js/radarDrawAK.js"></script>
+<script>
+	// Hack to make this example display correctly in an iframe on bl.ocks.org
+	d3.select(self.frameElement).style("height", "1000px");
+</script>
 
 </body>
 </html>
