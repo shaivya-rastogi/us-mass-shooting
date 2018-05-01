@@ -1,16 +1,3 @@
-/** RadarChart
- *
- * This is the main reuseable function to draw radar charts.
- *
- * The original d3 project is found on: https://github.com/alangrafu/radar-chart-d3
- * This version is based on the cleaned version found on: http://bl.ocks.org/nbremer/6506614
- * with some reorganization of code and added commenting, as well as further function abstractions
- * to allow for addition/removal of visualization components via tweaking configuration parameters.
- *
- **/
-
-
-
 var RadarChart = {
   draw: function(id, data, options) {
 
@@ -22,8 +9,8 @@ var RadarChart = {
      *
      **/
     // initiate default config
-    var w = 250;
-    var h = 250;
+    var w = 300;
+    var h = 300;
     var config = {
       w: w,
       h: h,
@@ -34,7 +21,7 @@ var RadarChart = {
       facetPaddingScale: 2.5,
       maxValue: 0,
       radians: 2 * Math.PI,
-      polygonAreaOpacity: 0.2,
+      polygonAreaOpacity: 0.3,
       polygonStrokeOpacity: 1,
       polygonPointSize: 4,
       legendBoxSize: 10,
@@ -128,8 +115,8 @@ var RadarChart = {
       }));
       config.w *= config.levelScale;
       config.h *= config.levelScale;
-      config.paddingX = config.w + config.levelScale;
-      config.paddingY = config.h + config.levelScale;
+      config.paddingX = config.w * config.levelScale;
+      config.paddingY = config.h * config.levelScale;
 
 
       // if facet required:
@@ -166,8 +153,8 @@ var RadarChart = {
       // create main vis svg
       vis.svg = d3.select(id)
         .append("svg").classed("svg-vis", true)
-        .attr("width", config.w + config.paddingX)//
-        .attr("height", config.h + config.paddingY)//config.paddingY
+        .attr("width", config.w + config.paddingX)
+        .attr("height", config.h + config.paddingY)
         .append("svg:g")
         .attr("transform", "translate(" + config.translateX + "," + config.translateY + ")");;
 
@@ -179,13 +166,14 @@ var RadarChart = {
           "position": "absolute",
           "color": "black",
           "font-size": "10px",
+          "font-family" : "Advent Pro",
           "width": "100px",
           "height": "auto",
           "padding": "5px",
           "border": "2px solid gray",
           "border-radius": "5px",
           "pointer-events": "none",
-          "opacity": "0.2",
+          "opacity": "0",
           "background": "#f4f4f4"
         });
 
@@ -201,7 +189,7 @@ var RadarChart = {
       // create vertices
       vis.vertices = vis.svg.selectAll(".vertices");
 
-      //Initiate Legend	
+      //Initiate Legend 
       vis.legend = vis.svg.append("svg:g").classed("legend", true)
         .attr("height", config.h / 2)
         .attr("width", config.w / 2)
@@ -244,7 +232,7 @@ var RadarChart = {
           .attr("transform", "translate(" + (config.w / 2 - levelFactor + 5) + ", " + (config.h / 2 - levelFactor) + ")")
           .attr("fill", "gray")
           .attr("font-family", "Advent Pro")
-          .attr("font-size", 10 * config.labelScale + "px");
+          .attr("font-size", 12 * config.labelScale + "px");
       }
     }
 
@@ -256,8 +244,8 @@ var RadarChart = {
         .append("svg:line").classed("axis-lines", true)
         .attr("x1", config.w / 2)
         .attr("y1", config.h / 2)
-        .attr("x2", function(d, i) { return config.w * (1 - Math.sin(i * config.radians / vis.totalAxes)); })
-        .attr("y2", function(d, i) { return config.h * (1 - Math.cos(i * config.radians / vis.totalAxes)); })
+        .attr("x2", function(d, i) { return config.w / 2 * (1 - Math.sin(i * config.radians / vis.totalAxes)); })
+        .attr("y2", function(d, i) { return config.h / 2 * (1 - Math.cos(i * config.radians / vis.totalAxes)); })
         .attr("stroke", "grey")
         .attr("stroke-width", "1px");
     }
@@ -346,7 +334,7 @@ var RadarChart = {
       vis.legend.selectAll(".legend-tiles")
         .data(data).enter()
         .append("svg:rect").classed("legend-tiles", true)
-        .attr("x", config.w * config.paddingX / 2)
+        .attr("x", config.w - config.paddingX / 2)
         .attr("y", function(d, i) { return i * 2 * config.legendBoxSize; })
         .attr("width", config.legendBoxSize)
         .attr("height", config.legendBoxSize)
@@ -359,7 +347,8 @@ var RadarChart = {
         .attr("x", config.w - config.paddingX / 2 + (1.5 * config.legendBoxSize))
         .attr("y", function(d, i) { return i * 2 * config.legendBoxSize; })
         .attr("dy", 0.07 * config.legendBoxSize + "em")
-        .attr("font-size", 11 * config.labelScale + "px")
+        .attr("font-size", 14 * config.labelScale + "px")
+        .attr("font-family", 'Advent Pro')
         .attr("fill", "gray")
         .text(function(d) {
           return d.group;
@@ -370,7 +359,8 @@ var RadarChart = {
     // show tooltip of vertices
     function verticesTooltipShow(d) {
       vis.verticesTooltip.style("opacity", 0.9)
-        .html("<strong>Value</strong>: " + d.value + "<br />" )
+        .html("<strong>Value</strong>: " + d.value + "<br />" +
+          "<strong>Description</strong>: " + d.description + "<br />")
         .style("left", (d3.event.pageX) + "px")
         .style("top", (d3.event.pageY) + "px");
     }
