@@ -6,12 +6,19 @@ http://www.templatemo.com/tm-486-new-event
 
 */
 
+@font-face {
+    font-family: avenir;
+    src: url(fonts/AvenirLTStd-Book.otf);
+}
+
 body {
 		background: #ffffff;
     font-family: 'Poppins', sans-serif;
     font-style: normal;
 		font-weight: 400;
+		font-family: avenir !important;
 }
+
 
 
 /*---------------------------------------
@@ -19,40 +26,48 @@ body {
 -----------------------------------------*/
 h1,h2,h3,h4,h5,h6 {
   font-weight: 600;
+	font-family: avenir !important;
 }
 
 h3,h5 {
   font-weight: 500;
+	font-family: avenir !important;
 }
 
 h1 {
     font-size: 40px;
     letter-spacing: 2px;
+
 }
 
 h2 {
   font-size: 30px;
   text-transform: uppercase;
+	font-family: avenir !important;
 }
 
 h3 {
   line-height: 36px;
+	font-family: avenir !important;
 }
 
 h5 {
     letter-spacing: 1px;
     padding-top: 10px;
+		font-family: avenir !important;
 }
 
 p {
     color: #707070;
     font-size: 14px;
     line-height: 24px;
+		font-family: avenir !important;
 }
 
 a {
   text-decoration: none !important;
   outline: none;
+	font-family: avenir !important;
 }
 
 pre {
@@ -73,12 +88,35 @@ pre {
   border: 1px solid #ddd;
   padding-left: 20px;
   margin-bottom: 20px;
+	font-family: avenir !important;
 }
 .checkbox {
   margin-left: 20px;
 }
 
+#blurb h3, #blurb h4{
+	line-height: 1.8 !important;
+	text-align: justify;
+	font-weight: normal;
+}
 
+.column {
+    float: left;
+}
+
+.left {
+    width: 33%;
+}
+
+.right {
+    width: 67%;
+}
+/* Clear floats after the columns */
+.row:after {
+    //content: "";
+    display: table;
+    clear: both;
+}
 /*---------------------------------------
     General
 -----------------------------------------*/
@@ -88,8 +126,8 @@ pre {
 
 #overview,
 #register {
-  padding-top: 14rem;
-  padding-bottom: 14rem;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
 }
 
 #detail, #video,
@@ -129,6 +167,7 @@ footer {
     margin-right: 12px;
     -webkit-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
+		font-family: avenir;
 }
 
 #intro .btn-danger,
@@ -235,6 +274,7 @@ footer {
     text-transform: uppercase;
     line-height: 40px;
     transition: all 0.4s ease-in-out;
+		font-family: avenir;
 }
 
 .custom-navbar .nav li a:hover {
