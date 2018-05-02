@@ -83,9 +83,9 @@ pre {
 .visualization {
 }
 .configuration {
-  font-size: 0.8em;
-  width: 250px;
-  border: 1px solid #ddd;
+  //font-size: 0.8em;
+  //width: 250px;
+  //border: 1px solid #ddd;
   padding-left: 20px;
   margin-bottom: 20px;
 	font-family: avenir !important;
@@ -98,6 +98,11 @@ pre {
 	line-height: 1.8 !important;
 	text-align: justify;
 	font-weight: normal;
+}
+
+#blurb p{
+	font-weight: lighter;
+	color: black;
 }
 
 .column {
