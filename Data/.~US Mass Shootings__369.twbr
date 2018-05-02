@@ -1953,13 +1953,13 @@
             <dictionary>
               <bucket>&quot;White&quot;</bucket>
               <bucket>&quot;African American&quot;</bucket>
-              <bucket>&quot;African American/Unknown&quot;</bucket>
               <bucket>&quot;Asian American&quot;</bucket>
-              <bucket>&quot;Asian American/Other&quot;</bucket>
               <bucket>&quot;Latino&quot;</bucket>
               <bucket>&quot;Native American or Alaska Native&quot;</bucket>
-              <bucket>&quot;White/Other&quot;</bucket>
               <bucket>&quot;Two or more races&quot;</bucket>
+              <bucket>&quot;African American/Unknown&quot;</bucket>
+              <bucket>&quot;Asian American/Other&quot;</bucket>
+              <bucket>&quot;White/Other&quot;</bucket>
               <bucket>&quot;Other&quot;</bucket>
               <bucket>&quot;Unknown&quot;</bucket>
               <bucket>%all%</bucket>
@@ -2077,14 +2077,14 @@
         </edge>
       </cards>
     </window>
-    <window class='dashboard' maximized='true' name='Population Pyramid'>
+    <window class='dashboard' name='Population Pyramid'>
       <viewpoints>
         <viewpoint name='Female Perp' />
         <viewpoint name='Male Perp' />
       </viewpoints>
-      <active id='8' />
+      <active id='7' />
     </window>
-    <window class='worksheet' name='Race'>
+    <window class='worksheet' maximized='true' name='Race'>
       <cards>
         <edge name='left'>
           <strip size='160'>
