@@ -35,7 +35,7 @@ h3,h5 {
 }
 
 h1 {
-    font-size: 40px;
+    font-size: 44px;
     letter-spacing: 2px;
 
 }
@@ -91,7 +91,8 @@ pre {
 	font-family: avenir !important;
 }
 .checkbox {
-  margin-left: 20px;
+  //margin-left: 20px;
+	margin-top: 10px;
 }
 
 #blurb h3, #blurb h4{
@@ -122,6 +123,15 @@ pre {
     display: table;
     clear: both;
 }
+
+.left1 {
+    width: 67%;
+}
+
+.right1 {
+    width: 33%;
+}
+/* C
 /*---------------------------------------
     General
 -----------------------------------------*/
@@ -140,8 +150,8 @@ pre {
 #program,
 #sponsors,
 #contact, footer {
-    padding-top: 10rem;
-    padding-bottom: 10rem;
+    padding-top: 7rem;
+    padding-bottom: 7rem;
 }
 
 #detail,
